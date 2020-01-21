@@ -1037,10 +1037,6 @@ function twig_escape_filter(Environment $env, $string, $strategy = 'html', $char
         }
     }
 
-    if ('' === $string) {
-        return '';
-    }
-
     if (null === $charset) {
         $charset = $env->getCharset();
     }
@@ -1069,6 +1065,10 @@ function twig_escape_filter(Environment $env, $string, $strategy = 'html', $char
                 'ISO8859-5' => true, 'ISO-8859-5' => true, 'MACROMAN' => true,
             ];
 
+            if ('' === $string) {
+                return '';
+            }
+
             if (isset($htmlspecialcharsCharsets[$charset])) {
                 return htmlspecialchars($string, \ENT_QUOTES | \ENT_SUBSTITUTE, $charset);
             }
@@ -1086,6 +1086,10 @@ function twig_escape_filter(Environment $env, $string, $strategy = 'html', $char
             return twig_convert_encoding($string, $charset, 'UTF-8');
 
         case 'js':
+            if ('' === $string) {
+                return '';
+            }
+
             // escape all non-alphanumeric characters
             // into their \x or \uHHHH representations
             if ('UTF-8' !== $charset) {
@@ -1105,6 +1109,10 @@ function twig_escape_filter(Environment $env, $string, $strategy = 'html', $char
             return $string;
 
         case 'css':
+            if ('' === $string) {
+                return '';
+            }
+
             if ('UTF-8' !== $charset) {
                 $string = twig_convert_encoding($string, 'UTF-8', $charset);
             }
@@ -1122,6 +1130,10 @@ function twig_escape_filter(Environment $env, $string, $strategy = 'html', $char
             return $string;
 
         case 'html_attr':
+            if ('' === $string) {
+                return '';
+            }
+
             if ('UTF-8' !== $charset) {
                 $string = twig_convert_encoding($string, 'UTF-8', $charset);
             }

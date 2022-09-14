@@ -543,21 +543,22 @@ class TemplateArrayAccessObject implements \ArrayAccess
         '+4' => '+4',
     ];
 
-    public function offsetExists($name)
+    public function offsetExists($name): bool
     {
         return \array_key_exists($name, $this->attributes);
     }
 
+    #[\ReturnTypeWillChange]
     public function offsetGet($name)
     {
         return \array_key_exists($name, $this->attributes) ? $this->attributes[$name] : null;
     }
 
-    public function offsetSet($name, $value)
+    public function offsetSet($name, $value): void
     {
     }
 
-    public function offsetUnset($name)
+    public function offsetUnset($name): void
     {
     }
 }
@@ -610,7 +611,7 @@ class TemplatePropertyObject
 
 class TemplatePropertyObjectAndIterator extends TemplatePropertyObject implements \IteratorAggregate
 {
-    public function getIterator()
+    public function getIterator(): \Traversable
     {
         return new \ArrayIterator(['foo', 'bar']);
     }
@@ -628,21 +629,22 @@ class TemplatePropertyObjectAndArrayAccess extends TemplatePropertyObject implem
         'baf' => 'baf',
     ];
 
-    public function offsetExists($offset)
+    public function offsetExists($offset): bool
     {
         return \array_key_exists($offset, $this->data);
     }
 
+    #[\ReturnTypeWillChange]
     public function offsetGet($offset)
     {
         return $this->offsetExists($offset) ? $this->data[$offset] : 'n/a';
     }
 
-    public function offsetSet($offset, $value)
+    public function offsetSet($offset, $value): void
     {
     }
 
-    public function offsetUnset($offset)
+    public function offsetUnset($offset): void
     {
     }
 }
@@ -751,22 +753,23 @@ class TemplateArrayAccess implements \ArrayAccess
     ];
     private $children = [];
 
-    public function offsetExists($offset)
+    public function offsetExists($offset): bool
     {
         return \array_key_exists($offset, $this->children);
     }
 
+    #[\ReturnTypeWillChange]
     public function offsetGet($offset)
     {
         return $this->children[$offset];
     }
 
-    public function offsetSet($offset, $value)
+    public function offsetSet($offset, $value): void
     {
         $this->children[$offset] = $value;
     }
 
-    public function offsetUnset($offset)
+    public function offsetUnset($offset): void
     {
         unset($this->children[$offset]);
     }

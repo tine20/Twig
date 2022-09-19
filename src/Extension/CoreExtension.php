@@ -605,7 +605,7 @@ function twig_urlencode_filter($url)
         return http_build_query($url, '', '&');
     }
 
-    return rawurlencode($url);
+    return rawurlencode((string)$url);
 }
 
 /**
@@ -993,11 +993,11 @@ function twig_trim_filter($string, $characterMask = null, $side = 'both')
 
     switch ($side) {
         case 'both':
-            return trim($string, $characterMask);
+            return trim((string)$string, $characterMask);
         case 'left':
-            return ltrim($string, $characterMask);
+            return ltrim((string)$string, $characterMask);
         case 'right':
-            return rtrim($string, $characterMask);
+            return rtrim((string)$string, $characterMask);
         default:
             throw new RuntimeError('Trimming side must be "left", "right" or "both".');
     }
@@ -1010,7 +1010,7 @@ function twig_trim_filter($string, $characterMask = null, $side = 'both')
  */
 function twig_spaceless($content)
 {
-    return trim(preg_replace('/>\s+</', '><', $content));
+    return trim(preg_replace('/>\s+</', '><', is_array($content) ? $content : (string)$content));
 }
 
 /**

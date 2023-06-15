@@ -201,9 +201,9 @@ function twig_escape_filter(Environment $env, $string, $strategy = 'html', $char
         }
     }
 
-    if ('' === $string) {
+    /*if ('' === $string) {
         return '';
-    }
+    }*/
 
     if (null === $charset) {
         $charset = $env->getCharset();
